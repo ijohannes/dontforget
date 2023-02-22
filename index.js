@@ -40,6 +40,8 @@ app.get('/', (req, res) => {
     });
 });
 
+require('./app/routes/usuario.routes.js')(app);
+
 // Start the server with selected configuration [5]
 ////////////////////////////////////////////////////////////////////////
 // Connect to the database
