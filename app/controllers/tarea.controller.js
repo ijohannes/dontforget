@@ -1,24 +1,23 @@
-const Usuario = require('../models/usuario.model.js');
-//Crear y guardar una nuevo Usuario
+const Tarea = require('../models/tarea.model.js');
+//Crear y guardar una nueva Tarea
 exports.create = (req, res) => {
     // Validar si el cuerpo de la solicitud está vacío
     // (no incluye datos requeridos)
     if(Object.keys(req.body).length === 0) {
         return res.status(400).send({
-            message: "Usuario no puede ser vacio"
+            message: "Tarea no puede ser vacio"
         });
     }
     
     // Create a new Tarea with request's data
-    const usuario = new Usuario({
-        documento: req.body.documento,
-        nombres: req.body.nombres,
-        correo: req.body.correo,
-        contrasena: req.body.contrasena,
+    const tarea = new Tarea({
+        idLista: req.body.idLista,
+        descripcion: req.body.descripcion,
+        estado: req.body.estado,
     });
         
     // Crear una nueva Tarea con los datos de la solicitud
-    usuario.save()
+    tarea.save()
     .then(data => {
         res.status(200).send(data);
     }).catch(err => {
@@ -29,11 +28,11 @@ exports.create = (req, res) => {
 };
    
 
-// Recuperar y listar todos los Usuario
+// Recuperar y listar todas las tareas
 exports.findAll = (req, res) => {
-    Usuario.find()
-    .then(usuario => {
-        res.status(200).send(usuario);
+    Tarea.find()
+    .then(tareas => {
+        res.status(200).send(tareas);
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Ocurrió algo incorrecto al recuperar los registros."
@@ -41,20 +40,20 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Obtener un solo usuario por su id
+// Obtener una sola Tarea por su id
 exports.findOne = (req, res) => {
-    Usuario.findById(req.params.id)
-    .then(usuario => {
-        if(!usuario) {
+    Tarea.findById(req.params.id)
+    .then(tarea => {
+        if(!tarea) {
             return res.status(404).send({
                 message: "Tarea no encontrada con id:" + req.params.id
             });
         }
-        res.status(200).send(usuario);
+        res.status(200).send(tarea);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Usuario no encontrado con id:" + req.params.id
+                message: "Tarea no encontrada con id:" + req.params.id
             });
         }
         return res.status(500).send({
@@ -64,34 +63,33 @@ exports.findOne = (req, res) => {
     });
 };
 
-// Actualizar un Usuario por su id
+// Actualizar una Tarea por su id
 exports.update = (req, res) => {
     // Validar si el cuerpo de la solicitud está vacío
     // (no incluye datos requeridos)
     if(Object.keys(req.body).length === 0) {
         return res.status(400).send({
-            message: "Usuario los datos no pueden estar vacios"
+        message: "Tarea los datos no pueden estar vacios"
         });
     }
 
-    // Encuentra el Usuario y actualiza con los datos del cuerpo de la solicitud
-    Usuario.findByIdAndUpdate(req.params.id, {
-        documento: req.body.documento,
-        nombres: req.body.nombres,
-        correo: req.body.correo,
-        contrasena: req.body.contrasena,
+    // Encuentra la Tarea y actualízala con los datos del cuerpo de la solicitud
+    Tarea.findByIdAndUpdate(req.params.id, {
+        documento_usuario: req.body.documento_usuario,
+        descripcion: req.body.descripcion,
+        estado: req.body.estado
     }, { new: true })
-    .then(usuario => {
-        if(!usuario) {
+    .then(tarea => {
+        if(!tarea) {
             return res.status(404).send({
-                message: "Usuario no encontrada con id:" + req.params.id
+                message: "Tarea no encontrada con id:" + req.params.id
             });
         }
-        res.status(200).send(usuario);
+        res.status(200).send(tarea);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Usuario no encontrada con id:" + req.params.id
+                message: "Tarea no encontrada con id:" + req.params.id
             });
         }
         return res.status(500).send({
@@ -101,20 +99,20 @@ exports.update = (req, res) => {
 };
 
        
-// Borrar un Usuario por su id
+// Borrar una Tarea por su id
 exports.delete = (req, res) => {
-    Usuario.findByIdAndRemove(req.params.id)
-    .then(usuario => {
-        if(!usuario) {
+    Tarea.findByIdAndRemove(req.params.id)
+    .then(tarea => {
+        if(!tarea) {
             return res.status(404).send({
-                message: "Usuario no encontrada con id:" + req.params.id
+                message: "Tarea no encontrada con id:" + req.params.id
             });
         }
-        res.status(200).send({message: "usuario eliminado con exito!"});
+        res.status(200).send({message: "Tarea deleted successfully!"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "Usuario no encontrada con id:" + req.params.id
+                message: "Tarea no encontrada con id:" + req.params.id
             });
         }
         return res.status(500).send({
