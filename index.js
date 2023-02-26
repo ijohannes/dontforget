@@ -41,6 +41,7 @@ app.get('/', (req, res) => {
 });
 
 require('./app/routes/usuario.routes.js')(app);
+require('./app/routes/lista.routes.js')(app);
 
 // Start the server with selected configuration [5]
 ////////////////////////////////////////////////////////////////////////
