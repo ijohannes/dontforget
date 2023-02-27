@@ -122,4 +122,8 @@ exports.delete = (req, res) => {
         });
     });
 };
+
+// login usuario
+exports.findOne = (req, res) => {
    
+};

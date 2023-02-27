@@ -1,14 +1,16 @@
 module.exports = (app) => {
     const usuarios = require('../controllers/usuario.controller.js');
-    // Create a new Product
+    // Crear un nuevo usuario
     app.post('/usuarios', usuarios.create);
-    // List all Products
+    // listar todos los usuarios
     app.get('/usuarios', usuarios.findAll);
-    // Get a single Product by id
+    // Obtener un solo un usuario por id
     app.get('/usuarios/:id', usuarios.findOne);
-    // Update a Product by id
+    // editar usuario por id
     app.put('/usuarios/:id', usuarios.update);
-    // Delete a Product by id
+    // eliminar usuario por id
     app.delete('/usuarios/:id', usuarios.delete);
+
+    
 }
    
