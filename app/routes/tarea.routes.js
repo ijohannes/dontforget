@@ -10,5 +10,7 @@ module.exports = (app) => {
     app.put('/tareas/:id', tareas.update);
     // Delete a Product by id
     app.delete('/tareas/:id', tareas.delete);
+
+    app.delete('/tareasEliminar/:idLista', tareas.deleteidLista);
 }
    

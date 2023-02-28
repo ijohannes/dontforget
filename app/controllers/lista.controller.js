@@ -1,5 +1,5 @@
 const Lista = require('../models/lista.model.js');
-const TareaC = require('../controllers/tarea.controller.js');
+//const TareaC = require('../controllers/tarea.controller.js');
 // Create and save a new Lista
 // Create and save a new Lista
 exports.create = (req, res) => {
@@ -111,23 +111,8 @@ exports.delete = (req, res) => {
                 message: "Lista no encontrada con id:" + req.params.id
             });
         }
-            res.status(200).send({message: "Lista eliminada con exito!";});
-            /*exports.eliminarProducto = async (req, res) => {
-    try {
-        let producto = await Producto.findById(req.params.id);
-
-        if(!producto) {
-            res.estatus(404).json({ msg: 'No existe el producto'});
-        }
-
-        await Producto.findOneAndRemove({ _id: req.params.id })
-        res.json({ msg: 'Producto eliminado correctamente'});
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Hubo un error al eliminar este producto');
-    }
-} */ 
+            res.status(200).send({message: "Lista eliminada con exito!"});
+ 
 
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
