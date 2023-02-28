@@ -9,8 +9,9 @@ module.exports = (app) => {
     // editar usuario por id
     app.put('/usuarios/:id', usuarios.update);
     // eliminar usuario por id
-    app.delete('/usuarios/:id', usuarios.delete);
-
-    
+    app.delete('/usuarios/:id', usuarios.delete);    
+    // Obtener un solo un usuario por id
+    app.post('/login/',usuarios.login);    
+        
 }
    

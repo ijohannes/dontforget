@@ -75,7 +75,7 @@ exports.update = (req, res) => {
 
     // Encuentra la Tarea y actualízala con los datos del cuerpo de la solicitud
     Tarea.findByIdAndUpdate(req.params.id, {
-        documento_usuario: req.body.documento_usuario,
+        idLista: req.body.idLista,
         descripcion: req.body.descripcion,
         estado: req.body.estado
     }, { new: true })
@@ -108,7 +108,7 @@ exports.delete = (req, res) => {
                 message: "Tarea no encontrada con id:" + req.params.id
             });
         }
-        res.status(200).send({message: "Tarea deleted successfully!"});
+        res.status(200).send({message: "Tarea eliminada con exito!"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
@@ -121,3 +121,24 @@ exports.delete = (req, res) => {
     });
 };
    
+// Borrar una Tarea por su idLista
+exports.deleteTarea = (req, res) => {
+    console.log(req.params.idLista);/*Tarea.findOneAndRemove(req.params.idLista)
+    .then(tarea => {
+        if(!tarea) {
+            return res.status(404).send({
+                message: "Tarea no encontrada con id:" + req.params.id
+            });
+        }
+        res.status(200).send({message: "Tarea eliminada con exito!"});
+    }).catch(err => {
+        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+            return res.status(404).send({
+                message: "Tarea no encontrada con id:" + req.params.id
+            });
+        }
+        return res.status(500).send({
+            message: "Ocurrió algo incorrecto al eliminar el registro con id:" + req.params.id
+        });
+    });*/
+};

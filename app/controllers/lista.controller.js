@@ -1,4 +1,5 @@
 const Lista = require('../models/lista.model.js');
+const TareaC = require('../controllers/tarea.controller.js');
 // Create and save a new Lista
 // Create and save a new Lista
 exports.create = (req, res) => {
@@ -103,23 +104,41 @@ exports.update = (req, res) => {
 
 // Delete a Lista by its id
 exports.delete = (req, res) => {
-    Product.findByIdAndRemove(req.params.id)
+    Lista.findByIdAndRemove(req.params.id)
     .then(lista => {
         if(!lista) {
             return res.status(404).send({
-                message: "Lista not found with id:" + req.params.id
+                message: "Lista no encontrada con id:" + req.params.id
             });
         }
-        res.status(200).send({message: "Lista deleted successfully!"});
+            res.status(200).send({message: "Lista eliminada con exito!";});
+            /*exports.eliminarProducto = async (req, res) => {
+    try {
+        let producto = await Producto.findById(req.params.id);
+
+        if(!producto) {
+            res.estatus(404).json({ msg: 'No existe el producto'});
+        }
+
+        await Producto.findOneAndRemove({ _id: req.params.id })
+        res.json({ msg: 'Producto eliminado correctamente'});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error al eliminar este producto');
+    }
+} */ 
+
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "Product not found with id:" + req.params.id
+                message: "Lista no encontrada id:" + req.params.id
             });
         }
         return res.status(500).send({
-            message: "Something wrong ocurred while deleting the record with id:" + req.params.id
+            message: "Ocurrio algo incorrecto al eliminar el registro con id:" + req.params.id
         });
     });
+    
 };
    

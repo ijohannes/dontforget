@@ -27,8 +27,6 @@ exports.create = (req, res) => {
         });
     });
 };
-   
-
 // Recuperar y listar todos los Usuario
 exports.findAll = (req, res) => {
     Usuario.find()
@@ -40,14 +38,13 @@ exports.findAll = (req, res) => {
         });
     });
 };
-
 // Obtener un solo usuario por su id
 exports.findOne = (req, res) => {
     Usuario.findById(req.params.id)
     .then(usuario => {
         if(!usuario) {
             return res.status(404).send({
-                message: "Tarea no encontrada con id:" + req.params.id
+                message: "Usuario no encontrada con id:" + req.params.id
             });
         }
         res.status(200).send(usuario);
@@ -63,7 +60,6 @@ exports.findOne = (req, res) => {
         });
     });
 };
-
 // Actualizar un Usuario por su id
 exports.update = (req, res) => {
     // Validar si el cuerpo de la solicitud está vacío
@@ -98,9 +94,7 @@ exports.update = (req, res) => {
             message: "Ocurrió algo incorrecto al actualizar el registro con id:" + req.params.id
         });
     });
-};
-
-       
+};       
 // Borrar un Usuario por su id
 exports.delete = (req, res) => {
     Usuario.findByIdAndRemove(req.params.id)
@@ -122,8 +116,26 @@ exports.delete = (req, res) => {
         });
     });
 };
-
 // login usuario
-exports.findOne = (req, res) => {
-   
+exports.login = (req, res) => {
+
+    Usuario.findOne({correo:req.body.correo,contrasena:req.body.contrasena})
+        .then(usuario => {
+            
+            if(!usuario) {
+                return res.status(404).send({
+                    message: "Usuario no encontrado con correo:" + req.body.correo
+                });
+            }
+            res.status(200).send({message: "Usuario logeado con exito!"});
+        }).catch(err => {
+            if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+                return res.status(404).send({
+                    message: "Usuario no encontrado con id:" + req.body.correo
+                });
+            }
+            return res.status(500).send({
+                message: "Ocurrió algo incorrecto al consultar el usuario con correo:" + req.body.correo
+            });
+        });
 };
