@@ -1,16 +1,16 @@
 module.exports = (app) => {
     const tareas = require('../controllers/tarea.controller.js');
-    // Create a new Product
+    // crear nueva tarea
     app.post('/tareas', tareas.create);
-    // List all Products
+    // listar todos las tareas
     app.get('/tareas', tareas.findAll);
-    // Get a single Product by id
+    // consultar una tarea  por id
     app.get('/tareas/:id', tareas.findOne);
-    // Update a Product by id
+    // actualizar una tarea  por id
     app.put('/tareas/:id', tareas.update);
-    // Delete a Product by id
+    // eliminar una tarea  por id
     app.delete('/tareas/:id', tareas.delete);
-
+    // Eliminar todas las tareas por idLista
     app.delete('/tareasEliminar/:idLista', tareas.deleteidLista);
 }
    

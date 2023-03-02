@@ -122,8 +122,8 @@ exports.delete = (req, res) => {
 };
    
 // Borrar una Tarea por su idLista
-exports.deleteidLista = (id) => {
-    Tarea.deleteMany({idLista:id})
+exports.deleteidLista = (req,res) => {
+    Tarea.deleteMany({idLista:req.params.idLista})
      .then(tarea => {
          if(!tarea) {
              return res.status(404).send({
